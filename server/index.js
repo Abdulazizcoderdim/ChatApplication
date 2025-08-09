@@ -6,6 +6,7 @@ const authRoutes = require("./routes/auth");
 const messagesRoute = require("./routes/messages");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
+const logger = require("./lib/logger");
 
 const app = express();
 
@@ -26,14 +27,14 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connected to MongoDB");
+    logger.info("Connected to MongoDB");
   })
   .catch((err) => {
-    console.log(err);
+    logger.error("Error during connect DB", err);
   });
 
 const server = app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+  logger.info(`Server is running on port ${process.env.PORT}`);
 });
 
 const io = socket(server, {
