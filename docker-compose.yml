@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  front:
+    build: ./public
+    ports:
+      - 5173:5173
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
