@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import multiavatar from "@multiavatar/multiavatar/esm";
 import { ToastContainer, toast } from "react-toastify";
-import type { ToastOptions } from "react-toastify";
 import axios from "axios";
 import { setAvatarRoute } from "../utils/api-route";
 import styled from "styled-components";
+import { toastOptions } from "../constants";
 
 const SetAvatar = () => {
   const navigate = useNavigate();
@@ -14,14 +14,6 @@ const SetAvatar = () => {
   const [selectedAvatar, setSelectedAvatar] = useState<number | undefined>(
     undefined
   );
-
-  const toastOptions: ToastOptions = {
-    position: "bottom-right",
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
 
   useEffect(() => {
     const user = localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY);

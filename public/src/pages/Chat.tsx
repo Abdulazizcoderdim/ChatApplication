@@ -47,6 +47,8 @@ const Chat = () => {
         }
       }
     };
+
+    fetchContacts();
   }, [currentUser]);
 
   const handleChatChange = (chat: IUser) => {
