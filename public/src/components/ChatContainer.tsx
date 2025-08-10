@@ -56,25 +56,29 @@ const ChatContainer = ({
   }, []);
 
   const handleSendMsg = async (msg: string) => {
-    const data = await JSON.parse(
-      localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
-    );
+    try {
+      const data = await JSON.parse(
+        localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
+      );
 
-    socket.current?.emit("send-msg", {
-      to: currentChat._id,
-      from: data._id,
-      msg,
-    });
+      socket.current?.emit("send-msg", {
+        to: currentChat._id,
+        from: data._id,
+        msg,
+      });
 
-    await axios.post(sendMessageRoute, {
-      to: currentChat._id,
-      from: data._id,
-      msg,
-    });
+      await axios.post(sendMessageRoute, {
+        to: currentChat._id,
+        from: data._id,
+        message: msg,
+      });
 
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
+      const msgs = [...messages];
+      msgs.push({ fromSelf: true, message: msg });
+      setMessages(msgs);
+    } catch (error) {
+      console.log("Send mesg::", error);
+    }
   };
 
   useEffect(() => {

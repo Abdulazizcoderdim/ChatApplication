@@ -19,7 +19,7 @@ const Chat = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const userData = localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY);
-      console.log("USer data::", Boolean(userData));
+
       if (!userData) {
         navigate("/login");
       } else {
