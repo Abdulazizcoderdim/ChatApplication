@@ -12,6 +12,7 @@ interface IValues {
 }
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [values, setValues] = useState<IValues>({ username: "", password: "" });
 
@@ -40,26 +41,33 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (validateForm()) {
-      const { username, password } = values;
+    try {
+      setLoading(true);
+      if (validateForm()) {
+        const { username, password } = values;
 
-      const { data } = await axios.post(loginRoute, {
-        username,
-        password,
-      });
+        const { data } = await axios.post(loginRoute, {
+          username,
+          password,
+        });
 
-      if (data.status === false) {
-        toast.error(data.msg, toastOptions);
+        if (data.status === false) {
+          toast.error(data.msg, toastOptions);
+        }
+
+        if (data.status === true) {
+          localStorage.setItem(
+            import.meta.env.VITE_LOCALHOST_KEY,
+            JSON.stringify(data.user)
+          );
+
+          navigate("/");
+        }
       }
-
-      if (data.status === true) {
-        localStorage.setItem(
-          import.meta.env.VITE_LOCALHOST_KEY,
-          JSON.stringify(data.user)
-        );
-
-        navigate("/");
-      }
+    } catch (error) {
+      console.log("Login Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,7 +77,7 @@ const Login = () => {
         <form onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src="/logo.svg" alt="logo" />
-            <h1>snappy</h1>
+            <h1>telechat</h1>
           </div>
           <input
             type="text"
@@ -84,7 +92,9 @@ const Login = () => {
             name="password"
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit">Log In</button>
+          <button disabled={loading} type="submit">
+            {loading ? "Loading..." : "Log In"}
+          </button>
           <span>
             Don't have an account ? <Link to="/register">Create One.</Link>
           </span>
