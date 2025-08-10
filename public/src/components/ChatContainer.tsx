@@ -30,7 +30,7 @@ const ChatContainer = ({
   useEffect(() => {
     const fetchMessages = async () => {
       const data = await JSON.parse(
-        localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY) || "{}"
+        localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
       );
 
       const res = await axios.post(recieveMessageRoute, {
@@ -47,7 +47,7 @@ const ChatContainer = ({
     const getCurrentChat = async () => {
       if (currentChat) {
         await JSON.parse(
-          localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY) || "{}"
+          localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
         )._id;
       }
     };
@@ -57,7 +57,7 @@ const ChatContainer = ({
 
   const handleSendMsg = async (msg: string) => {
     const data = await JSON.parse(
-      localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY) || "{}"
+      localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
     );
 
     socket.current?.emit("send-msg", {

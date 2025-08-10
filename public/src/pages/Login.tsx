@@ -17,7 +17,7 @@ const Login = () => {
   const [values, setValues] = useState<IValues>({ username: "", password: "" });
 
   useEffect(() => {
-    if (localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY)) {
+    if (localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY)) {
       navigate("/");
     }
   }, []);

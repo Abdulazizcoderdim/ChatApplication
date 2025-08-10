@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 module.exports.login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username }).lean();
 
     if (!user)
       return res.json({ msg: "Incorrect username or password", status: false });
@@ -15,6 +15,7 @@ module.exports.login = async (req, res, next) => {
       return res.json({ msg: "Incorrect Username or Password", status: false });
 
     delete user.password;
+    delete user.__v;
 
     return res.json({ status: true, user });
   } catch (error) {
@@ -26,7 +27,7 @@ module.exports.register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
 
-    const usernameCheck = await User.findOne({ username });
+    const usernameCheck = await User.findOne({ username }).lean();
 
     if (usernameCheck)
       return res.json({ msg: "Username already used", status: false });
@@ -45,6 +46,7 @@ module.exports.register = async (req, res, next) => {
     });
 
     delete user.password;
+    delete user.__v;
     return res.json({ status: true, user });
   } catch (error) {
     next(error);

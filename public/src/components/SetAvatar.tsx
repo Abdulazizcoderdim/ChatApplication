@@ -16,7 +16,9 @@ const SetAvatar = () => {
   );
 
   useEffect(() => {
-    const user = localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY);
+    const user = localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY);
+
+    console.log("Set AVatar::", user);
 
     if (!user) navigate("/login");
   }, [navigate]);
@@ -48,7 +50,7 @@ const SetAvatar = () => {
     }
 
     const user = await JSON.parse(
-      localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY) || "{}"
+      localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
     );
 
     const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
@@ -59,7 +61,7 @@ const SetAvatar = () => {
       user.isAvatarImageSet = true;
       user.avatarImage = data.image;
       localStorage.setItem(
-        import.meta.env.VITE_LOCALSTORAGE_KEY,
+        import.meta.env.VITE_LOCALHOST_KEY,
         JSON.stringify(user)
       );
       navigate("/");

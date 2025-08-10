@@ -18,7 +18,7 @@ const Contacts = ({
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const data = await JSON.parse(
-        localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY) || "{}"
+        localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
       );
       setCurrentUserName(data.username);
       setCurrentUserImage(data.avatarImage);

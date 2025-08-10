@@ -8,7 +8,7 @@ const Welcome = () => {
     const fetchData = async () => {
       setUserName(
         await JSON.parse(
-          localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_KEY) || "{}"
+          localStorage.getItem(import.meta.env.VITE_LOCALHOST_KEY) || "{}"
         ).username
       );
     };
