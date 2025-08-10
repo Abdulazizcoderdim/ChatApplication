@@ -143,12 +143,13 @@ const Container = styled.div`
   .current-user {
     background-color: #0d0d30;
     display: flex;
-    justify-content: center;
+    width: 90%;
     align-items: center;
     gap: 2rem;
+    padding: 10px;
     .avatar {
       img {
-        height: 4rem;
+        height: 3rem;
         max-inline-size: 100%;
       }
     }
